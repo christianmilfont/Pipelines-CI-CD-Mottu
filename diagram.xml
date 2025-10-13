@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2025-10-13T00:00:00.000Z" agent="5.0 (Windows)" etag="1">
+  <diagram name="Arquitetura CI-CD">
+    <mxGraphModel dx="1192" dy="745" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Personas -->
+        <mxCell id="p_dev" value="Desenvolvedor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="p_user" value="Usuário Final" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2F0D9;strokeColor=#8AB46C;" vertex="1" parent="1">
+          <mxGeometry x="20" y="120" width="140" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- GitHub repo -->
+        <mxCell id="github" value="GitHub Repository (DOTNET-MOTTU)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7FF;strokeColor=#24292F;" vertex="1" parent="1">
+          <mxGeometry x="200" y="20" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Azure DevOps -->
+        <mxCell id="ado" value="Azure DevOps&#10;Project: Sprint 4 – Azure DevOps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3F6FA;strokeColor=#0078D4;" vertex="1" parent="1">
+          <mxGeometry x="440" y="10" width="260" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Build Agent & CI -->
+        <mxCell id="agent" value="Build Agent (Hosted)&#10;Stage 1: CI (Build + Test)&#10;1) Checkout&#10;2) dotnet restore/build/test&#10;3) Publish artifact (.zip/.tar)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#999;" vertex="1" parent="ado">
+          <mxGeometry x="10" y="10" width="240" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Artifact box -->
+        <mxCell id="artifact" value="Artifact (build.zip)&#10;Published to Azure DevOps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0F0;strokeColor=#C23B22;" vertex="1" parent="1">
+          <mxGeometry x="740" y="50" width="160" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Docker Hub -->
+        <mxCell id="dockerhub" value="Docker Hub (christianmilfont/mottu-api)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0db7ed;" vertex="1" parent="1">
+          <mxGeometry x="200" y="250" width="220" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Azure Web App for Containers -->
+        <mxCell id="webapp" value="Azure Web App for Containers (Production)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8FF;strokeColor=#0067B8;" vertex="1" parent="1">
+          <mxGeometry x="460" y="260" width="260" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- Azure MySQL -->
+        <mxCell id="mysql" value="Azure Database for MySQL&#10;(host: mottu-db.mysql.database.azure.com)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7E6;strokeColor=#D47F00;" vertex="1" parent="1">
+          <mxGeometry x="740" y="260" width="260" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows / Flows -->
+        <mxCell id="flow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;html=1;strokeColor=#333;endArrow=block;" edge="1" parent="1" source="p_dev" target="github">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="label1" value="(1) Push/PR para branch master" style="text;html=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="120" y="70" width="140" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="flow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;html=1;strokeColor=#333;endArrow=block;" edge="1" parent="1" source="github" target="ado">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="label2" value="(2) CI trigger (webhook)" style="text;html=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="340" y="110" width="200" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="flow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;html=1;strokeColor=#333;endArrow=block;" edge="1" parent="1" source="ado" target="artifact">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="label3" value="(3) Publica artefato" style="text;html=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="620" y="30" width="140" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="flow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;html=1;strokeColor=#333;endArrow=block;" edge="1" parent="1" source="artifact" target="dockerhub">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="label4" value="(4) Build &amp; Push da imagem Docker" style="text;html=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="190" width="200" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="flow5" style="edgeStyle=elbowConnector;rounded=0;orthogonalLoop=1;html=1;strokeColor=#333;endArrow=block;" edge="1" parent="1" source="dockerhub" target="webapp">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="label5" value="(5) Deploy automático (CD)" style="text;html=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="340" y="300" width="240" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="flow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;html=1;strokeColor=#333;endArrow=block;" edge="1" parent="1" source="webapp" target="mysql">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="label6" value="(6) Conexão com MySQL (String protegida)" style="text;html=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="620" y="350" width="240" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="flow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;html=1;strokeColor=#333;endArrow=open;" edge="1" parent="1" source="p_user" target="webapp">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="label7" value="(7) Usuário acessa API via HTTPS" style="text;html=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="140" y="200" width="160" height="20" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
