@@ -21,7 +21,7 @@ API .NET (ASP.NET Core Web API) que expõe endpoints para gerenciar recursos do 
 
 ### Stack tecnológica
 
-Backend: .NET 8/7 (ajuste conforme seu projeto) — ASP.NET Core Web API
+Backend: .NET 8 — ASP.NET Core Web API
 
 Banco de dados: Azure Database for MySQL (PaaS).
 
