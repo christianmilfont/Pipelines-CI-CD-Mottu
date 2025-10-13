@@ -1,5 +1,19 @@
 # Descrição breve da solução
 
+### O que é o Azure Pipelines?
+- A Entrega Contínua (CD) é um processo pelo qual o código é compilado,
+testado e implantado em um ou mais ambientes de teste e produção
+- A implantação e o teste em vários ambientes melhora a qualidade
+- implantados, incluindo infraestrutura e aplicativos.
+- Os Processos de Releases Automatizados consomem esses artefatos para liberar novas versões ou correções para os sistemas existentes
+- Os sistemas de Monitoramento e Alerta são executados continuamente para melhorar a visibilidade de todo o processo de CD
+![alt text](image-1.png)
+---
+
+### Definir Pipelines usando a sintaxe YAML
+- Você define seu Pipeline em um arquivo YAML chamado azure-pipelines.yml
+- armazenado junto com o restante do seu código
+
 ---
 
 ### O que a aplicação faz
