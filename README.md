@@ -8,11 +8,24 @@ testado e implantado em um ou mais ambientes de teste e produção
 - Os Processos de Releases Automatizados consomem esses artefatos para liberar novas versões ou correções para os sistemas existentes
 - Os sistemas de Monitoramento e Alerta são executados continuamente para melhorar a visibilidade de todo o processo de CD
 ![alt text](image-1.png)
----
+--
 
-### Definir Pipelines usando a sintaxe YAML
-- Você define seu Pipeline em um arquivo YAML chamado azure-pipelines.yml
-- armazenado junto com o restante do seu código
+# Passo a Passo:
+- Criar e utilizar a VM Free no portal do Azure
+- Se conectar ao SSH da VM Linux e portar o arquivo ".sh":
+
+Abra o terminal (ou PowerShell no Windows) e digite o seguinte comando para conectar à sua VM:
+```
+ssh <usuário>@<endereço_ip>
+scp /caminho/local/do/arquivo.sh <usuário>@<endereço_ip>:<diretório_destino>
+
+```
+- Concender permissões de execução ao arquivo .sh
+```
+chmod +x meu_arquivo.sh
+``` 
+
+
 
 ---
 
@@ -62,38 +75,6 @@ Diagrama feito para demonstrar o Fluxo CI/CD
 | Monitoramento / Logging (recomend)| Observability           | Logs e métricas (opcional)                                                          | Azure Monitor / Application Insights (opcional) |
 
 ```
-
----
-
-
-## Banco de Dados em Nuvem (Azure Database for MySQL) — pontos principais
-
-Escolha do nosso Grupo: Azure Database for MySQL
-
-```bash
-Resource Group: rg-sprint4-mottu
-
-Nome do servidor: mottu-mysql-prod → DNS: mottu-mysql-prod.mysql.database.azure.com
-
-Tier: Basic / Burstable / General Purpose (avaliar custo)
-
-Versão MySQL: 8.0
-
-Storage: 5–20 GB (depende do seu volume)
-
-Conexões/Firewall: liberar IP do Web App (ou permitir acesso via VNet)
-
-SSL: habilitar e ajustar connection string no app (use SslMode=Preferred ou Required conforme a política)
-
-Usuário admin: admin@<server> (armazenar no Azure DevOps Library secret)
-
-String de conexão (exemplo):
-
-Server=mottu-mysql-prod.mysql.database.azure.com;Database=mottudb;User Id=admin@mottu-mysql-prod;Password=<SENHA>;SslMode=Required;
-
-```
-
-Observação: não usar H2/MongoDB Atlas conforme restrição do enunciado.
 
 ---
 
